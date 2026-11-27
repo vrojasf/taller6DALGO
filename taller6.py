@@ -1,9 +1,3 @@
-# input() lee la primera línea
-# .split() separa los valores de la primera lpinea (son dos)
-# map(int, ...) convierte esos textos en números enteros
-#n, m = guarda el primer número en n y el segundo en m
-n, m = map(int, input().split())
-
 def crear_grafo(n, m):
 
     # Creamos la lista principal del grafo
@@ -25,10 +19,13 @@ def crear_grafo(n, m):
 
     return grafo
 
+
 # VORAZ-REUNIONES
-
-
-#el parámetro opcional "orden" permite recorrer a los amigos
+# Complejidad: O(n + m). Cada amigo se visita una vez y, sumando todos,
+# se recorren 2m vecinos (cada arista aparece dos veces en las listas de
+# adyacencia), cada uno consultado en O(1) gracias al arreglo reunion.
+#
+# El parámetro opcional "orden" permite recorrer a los amigos
 # en otro orden (se usará en la Parte 2.3 con RANDOMIZE-IN-PLACE).
 # Si no se pasa, se recorren 1, 2, ..., n como en el pseudocódigo.
 def voraz_reuniones(grafo, orden=None):
@@ -36,7 +33,7 @@ def voraz_reuniones(grafo, orden=None):
     # Número de amigos
     n = len(grafo) - 1
 
-    # NUEVO: orden por defecto 1..n
+    # Orden por defecto: 1, 2, ..., n
     if orden is None:
         orden = range(1, n + 1)
 
@@ -75,7 +72,7 @@ def voraz_reuniones(grafo, orden=None):
     return A, B
 
 
-#  COSTO
+# COSTO
 # Calcula c(S): el número de conflictos (aristas) que quedan separados,
 # es decir, aristas con un extremo en A y el otro en B.
 # Recibe la reunión A; todos los demás amigos están en B.
@@ -103,7 +100,13 @@ def costo(grafo, A):
     return separados // 2
 
 
-#PROGRAMA PRINCIPAL
+# PROGRAMA PRINCIPAL
+
+# input() lee la primera línea
+# .split() separa los valores de la primera línea (son dos)
+# map(int, ...) convierte esos textos en números enteros
+# n, m = guarda el primer número en n y el segundo en m
+n, m = map(int, input().split())
 
 # Construimos el grafo leyendo los m conflictos
 grafo = crear_grafo(n, m)
